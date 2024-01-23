@@ -19,7 +19,22 @@ class FeedbackWidget extends Component {
     }));
   };
 
+  countTotalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const total = this.countTotalFeedback();
+    const { good } = this.state;
+    return total > 0 ? Math.round((good / total) * 100) : 0;
+  };
+
   render() {
+    const { good, neutral, bad } = this.state;
+    const totalFeedback = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+
     return (
       <div>
         <h1>Please leave feedback</h1>
@@ -31,9 +46,11 @@ class FeedbackWidget extends Component {
 
         <div>
           <h2>Statistics</h2>
-          <p>Good: {this.state.good}</p>
-          <p>Neutral: {this.state.neutral}</p>
-          <p>Bad: {this.state.bad}</p>
+          <p>Good: {good}</p>
+          <p>Neutral: {neutral}</p>
+          <p>Bad: {bad}</p>
+          <p>Total: {totalFeedback}</p>
+          <p>Positive Feedback: {positivePercentage}%</p>
         </div>
       </div>
     );
