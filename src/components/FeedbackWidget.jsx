@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import styles from './feedbackWidget.module.css';
+
+import Section from './Section';
+import Statistics from './Statistics';
+import FeedbackOptions from './FeedbackOptions';
+import Notification from './Notification';
 
 class FeedbackWidget extends Component {
   constructor(props) {
@@ -38,20 +42,24 @@ class FeedbackWidget extends Component {
     return (
       <div>
         <h1>Please leave feedback</h1>
-        <div className={styles.buttons}>
-          <button onClick={() => this.handleFeedback('good')}>Good</button>
-          <button onClick={() => this.handleFeedback('neutral')}>Neutral</button>
-          <button onClick={() => this.handleFeedback('bad')}>Bad</button>
-        </div>
 
-        <div>
-          <h2>Statistics</h2>
-          <p>Good: {good}</p>
-          <p>Neutral: {neutral}</p>
-          <p>Bad: {bad}</p>
-          <p>Total: {totalFeedback}</p>
-          <p>Positive Feedback: {positivePercentage}%</p>
-        </div>
+        <Section title="Feedback Options">
+          <FeedbackOptions onLeaveFeedback={this.handleFeedback} />
+        </Section>
+
+        <Section title="Statistics">
+          {totalFeedback > 0 ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedback}
+              positivePercentage={positivePercentage}
+            />
+          ) : (
+            <Notification message="No feedback given. please give us your feedback." />
+          )}
+        </Section>
       </div>
     );
   }
