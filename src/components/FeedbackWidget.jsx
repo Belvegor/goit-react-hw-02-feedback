@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Section from './Section';
 import Statistics from './Statistics';
 import FeedbackOptions from './FeedbackOptions';
@@ -12,14 +11,14 @@ class FeedbackWidget extends Component {
     this.state = {
       good: 0,
       neutral: 0,
-      bad: 0
+      bad: 0,
     };
   }
 
   handleFeedback = (type) => {
     this.setState((prevState) => ({
       ...prevState,
-      [type]: prevState[type] + 1
+      [type]: prevState[type] + 1,
     }));
   };
 
@@ -38,13 +37,14 @@ class FeedbackWidget extends Component {
     const { good, neutral, bad } = this.state;
     const totalFeedback = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
+    const feedbackOptions = ['good', 'neutral', 'bad'];
 
     return (
       <div>
         <h1>Please leave feedback</h1>
 
         <Section title="Feedback Options">
-          <FeedbackOptions onLeaveFeedback={this.handleFeedback} />
+          <FeedbackOptions options={feedbackOptions} onLeaveFeedback={this.handleFeedback} />
         </Section>
 
         <Section title="Statistics">
@@ -57,7 +57,7 @@ class FeedbackWidget extends Component {
               positivePercentage={positivePercentage}
             />
           ) : (
-            <Notification message="No feedback given. please give us your feedback." />
+            <Notification message="There is no feedback" />
           )}
         </Section>
       </div>
