@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Section from './Section';
 import Statistics from './Statistics';
 import FeedbackOptions from './FeedbackOptions';
@@ -64,5 +65,15 @@ class FeedbackWidget extends Component {
     );
   }
 }
+
+FeedbackWidget.propTypes = {
+  
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+  handleFeedback: PropTypes.func.isRequired,
+};
 
 export default FeedbackWidget;
